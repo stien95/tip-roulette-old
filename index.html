@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tip Roulette</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <header class="title-section">
+      <a class="title-h1 no-decoration" href="/">Tip Roulette</a>
+      <nav class="header-nav">
+        <button class="header-nav-button button-configuration">
+          <img src="svg/configuration.svg" alt="configuration button">
+        </button>
+        <button class="header-nav-button button-help">
+          <img src="svg/help.svg" alt="help button">
+        </button>
+        <button class="header-nav-button button-box">
+          <img src="svg/box.svg" alt="box button">
+        </button>
+      </nav>
+    </header>
+    <main>
+      <aside class="info-box">
+        <p class="info-box-title">MUSIC</p>
+        <img src="svg/music.svg" alt="">
+      </aside>
+      <section class="roulette-section" id="main-roulette">
+        <button id="spin-btn">SPIN!</button>
+        <div class="roulette">
+          <div class="box-roulette music-box">
+            <img src="svg/music.svg" alt="music" />
+            <span class="title-box">Music</span>
+          </div>
+          <div class="box-roulette game-box">
+            <img src="svg/game.svg" alt="game" />
+            <span class="title-box">Game</span>
+          </div>
+          <div class="box-roulette film-box">
+            <img src="svg/film.svg" alt="film" />
+            <span class="title-box">Film</span>
+          </div>
+          <div class="box-roulette general-box">
+            <img src="svg/general.svg" alt="general" />
+            <span class="title-box">General</span>
+          </div>
+        </div>
+      </section>
+      <style id="style-hover-box">
+        .box-roulette {
+          cursor: pointer;
+        }
+        .box-roulette:hover {
+          filter: brightness(90%) !important;
+        }
+        .box-roulette:hover img {
+          transition: all 0.3s;
+          transform: scale(1.2);
+        }
+        .box-roulette:hover .title-box {
+          visibility: visible;
+        }
+      </style>
+      <script>
+        const rouletteElement = document.querySelector(".roulette");
+        const boxElements = document.querySelectorAll(".box-roulette");
+        const spinButton = document.querySelector("#spin-btn");
+        const styleHoverBox = document.querySelector("#style-hover-box");
+        const dataStyle_1 = styleHoverBox.innerHTML;
+        const timeAnimation = 25;
+        let fpp = 0.5;
+        let boxChosen;
+        let percentComplete = 0;
+
+        function randBox(number) {
+          return Math.floor(Math.random() * number);
+        }
+
+        spinButton.addEventListener("click", () => {
+          styleHoverBox.innerHTML = "";
+          spinButton.style.display = "none";
+          percentComplete = 0;
+
+          const ChooseBox = setInterval(() => {
+            boxElements.forEach(
+              (box) => (box.style.filter = "brightness(30%)")
+            );
+            boxChosen = boxElements[randBox(4)];
+            boxChosen.style.filter = "brightness(100%)";
+          }, 200);
+
+          const animationSpin = setInterval(() => {
+            percentComplete += fpp;
+            rouletteElement.style.backgroundImage = `linear-gradient(90deg, #333 ${percentComplete}%, var(--roulette-color) 0%)`;
+            if (percentComplete >= 100) {
+              spinButton.style.display = "flex";
+              clearInterval(ChooseBox);
+              clearInterval(animationSpin);
+              styleHoverBox.innerHTML = dataStyle_1;
+              console.log(styleHoverBox.innerHTML);
+              const reverseAnimation = setInterval(() => {
+                percentComplete -= fpp;
+                rouletteElement.style.backgroundImage = `linear-gradient(90deg, #333 ${percentComplete}%, var(--roulette-color) 0%)`;
+
+                if (percentComplete <= 0) {
+                  percentComplete = 0;
+                  boxElements.forEach(
+                    (box) => (box.style.filter = "brightness(70%)")
+                  );
+                  clearInterval(reverseAnimation);
+                }
+              }, timeAnimation / 2);
+            }
+          }, timeAnimation);
+        });
+      </script>
+    </main>
+  </body>
+</html>

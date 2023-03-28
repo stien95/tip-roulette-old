@@ -137,11 +137,22 @@ main {
   overflow: hidden;
   
 }
-.mobile-button:hover {
+.mobile-button:hover > span {
   text-shadow: 0 0 5px var(--white);
 }
 .mobile-button:nth-child(1) {
   border-top: 1px solid white;
+}
+.counter-boxes-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--no-boxes-color);
+  border-radius: 50%;
+  color: var(--white);
+  border: 1px solid var(--white);
+  width: 30px;
+  height: 30px;
 }
 .mobile-button img {
   max-height: 100%;

@@ -41,10 +41,12 @@ body {
   filter: brightness(70%);
   width: 100vw;
   padding: 20px 0;
+  padding-left: 30vw;
+  padding-right: 10vw;
   background-color: var(--bg-color-title);
   border-radius: 0 0 40px 40px;
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   animation: falling-title 2s forwards;
 }
@@ -92,12 +94,29 @@ body {
 .button-box {
   position: relative;
 }
+.mobile-menu {
+  position: relative;
+}
 .counter-boxes {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--no-boxes-color);
+  border-radius: 50%;
+  color: var(--white);
+  border: 1px solid var(--white);
+  width: 18px;
+  height: 18px;
+  top: 0;
+  right: 0;
+}
+.counter-boxes-mobile-menu {
+  position: absolute;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--boxes-color);
   border-radius: 50%;
   color: var(--white);
   border: 1px solid var(--white);
@@ -229,14 +248,6 @@ main {
   cursor: pointer;
   user-select: none;
 }
-@keyframes spin {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
 #spin-btn:active {
   transition: transform 0.05s;
   transform: translate(-50%, -50%) scale(0.95);
@@ -249,7 +260,7 @@ main {
     display: none;
   }
 }
-@media (min-width:750px) {
+@media (min-width:450px) {
   .mobile-menu {
     display: none;
   }
@@ -274,10 +285,26 @@ main {
     width: 60vw;
     height: 60vw;
   }
+  .title-section {
+    padding-left: 20vw;
+  }
+}
+@media (max-width: 600px) {
+  .roulette {
+    width: 60vw;
+    height: 60vw;
+  }
+  .title-section {
+    padding-left: 10vw;
+  }
 }
 @media (max-width: 520px) {
   .roulette {
     width: 80vw;
     height: 80vw;
-  } 
+  }
+  .title-section {
+    padding-right: 5vw;
+    padding-left: 5vw;
+  }
 }

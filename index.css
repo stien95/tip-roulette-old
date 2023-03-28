@@ -23,6 +23,10 @@
 html {
   font-size: 62.5%;
   font-family: "Open Sans";
+  overflow-x: hidden;
+}
+.no-overflowY {
+  overflow-y: hidden;
 }
 body {
   background-color: var(--bg-color);
@@ -83,9 +87,44 @@ body {
     height: auto;
 }
 main {
-  margin: 20px;
   display: flex;
+  margin: 20px;
   justify-content: center;
+}
+.phone-navigation-menu {
+  position: absolute;
+  padding-top: 20px;
+  z-index: 2;
+  display: none;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+}
+.visible-menu {
+  display: flex;
+}
+.mobile-button {
+  border-bottom: 1px solid white;
+  color: var(--white);
+  font-size: 2rem;
+  width: 100%;
+  border-radius: 0%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 25vw;
+  align-items: center;
+  overflow: hidden;
+  
+}
+.mobile-button:hover {
+  text-shadow: 0 0 5px var(--white);
+}
+.mobile-button:nth-child(1) {
+  border-top: 1px solid white;
+}
+.mobile-button img {
+  max-height: 100%;
 }
 .info-box {
   position: absolute;
@@ -171,21 +210,23 @@ main {
   transition: transform 0.05s;
   transform: translate(-50%, -50%) scale(0.95);
 }
-
-
-@media (max-width: 520px) {
-  .roulette {
-    width: 80vw;
-    height: 80vw;
+@media (min-width: 1px) {
+  .mobile-menu {
+    display: inline-block;
+  }
+  .no-mobile-button {
+    display: none;
   }
 }
-@media (max-width: 768px) {
-  .roulette {
-    width: 60vw;
-    height: 60vw;
+@media (min-width:750px) {
+  .mobile-menu {
+    display: none;
+  }
+  .no-mobile-button {
+    display: inline-block;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   #spin-btn {
     width: 100px;
     height: 100px;
@@ -196,4 +237,16 @@ main {
     width: 50vw;
     height: 50vw;
   }
+}
+@media (max-width: 768px) {
+  .roulette {
+    width: 60vw;
+    height: 60vw;
+  }
+}
+@media (max-width: 520px) {
+  .roulette {
+    width: 80vw;
+    height: 80vw;
+  } 
 }

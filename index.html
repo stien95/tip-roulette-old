@@ -21,21 +21,38 @@
     <header class="title-section">
       <a class="title-h1 no-decoration" href="/">Tip Roulette</a>
       <nav class="header-nav">
-        <button class="header-nav-button button-configuration">
-          <img src="svg/configuration.svg" alt="configuration button">
+        <button class="header-nav-button button-configuration no-mobile-button">
+          <img src="svg/configuration.svg" alt="configuration button" />
         </button>
-        <button class="header-nav-button button-help">
-          <img src="svg/help.svg" alt="help button">
+        <button class="header-nav-button button-help no-mobile-button">
+          <img src="svg/help.svg" alt="help button" />
         </button>
-        <button class="header-nav-button button-box">
-          <img src="svg/box.svg" alt="box button">
+        <button class="header-nav-button button-box no-mobile-button">
+          <img src="svg/box.svg" alt="box button" />
+        </button>
+        <button class="header-nav-button mobile-menu">
+          <img src="svg/mobile-menu.svg" alt="mobile menu" />
         </button>
       </nav>
     </header>
+    <aside class="phone-navigation-menu">
+      <button class="header-nav-button button-configuration mobile-button">
+        <span>Configuration</span>
+        <img src="svg/configuration.svg" alt="configuration button" />
+      </button>
+      <button class="header-nav-button button-help mobile-button">
+        <span>Help</span>
+        <img src="svg/help.svg" alt="help button" />
+      </button>
+      <button class="header-nav-button button-box mobile-button">
+        <span>Boxes</span>
+        <img src="svg/box.svg" alt="box button" />
+      </button>
+    </aside>
     <main>
       <aside class="info-box">
         <p class="info-box-title">MUSIC</p>
-        <img src="svg/music.svg" alt="">
+        <img src="svg/music.svg" alt="" />
       </aside>
       <section class="roulette-section" id="main-roulette">
         <button id="spin-btn">SPIN!</button>
@@ -78,7 +95,14 @@
         const boxElements = document.querySelectorAll(".box-roulette");
         const spinButton = document.querySelector("#spin-btn");
         const styleHoverBox = document.querySelector("#style-hover-box");
+        const buttonMenuMobile = document.querySelector(".mobile-menu");
+        const menuMobile = document.querySelector(".phone-navigation-menu");
         const dataStyle_1 = styleHoverBox.innerHTML;
+
+        buttonMenuMobile.addEventListener("click", () => {
+          menuMobile.classList.toggle("visible-menu");
+          document.documentElement.classList.toggle("no-overflowY");
+        });
         const timeAnimation = 25;
         let fpp = 0.5;
         let boxChosen;

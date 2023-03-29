@@ -33,6 +33,7 @@ mediaQuery750.addEventListener("change", (e) => {
   }
 });
 btnMenuMobile.addEventListener("click", () => {
+  notificationMobile = 0
   notificationBoxMenu = 0;
   btnCounterInMbMenu.style.display = "none";
   btnCounterInMbMenu.innerText = 0;
@@ -114,15 +115,16 @@ spinButton.addEventListener("click", () => {
       clearInterval(ChooseBox);
       clearInterval(animationSpin);
       styleHoverBox.innerHTML = dataStyle_1;
-      if (!boxMenuElement.classList.contains("flex-display")) {
+      if (!boxMenuElement.classList.contains("flex-display") && !menuMobile.classList.contains("visible-menu")) {
         if (notificationBoxMenu === 0) {
           counterBoxesElement.style.backgroundColor = "var(--boxes-color)";
           cnterBxMobileElement.style.backgroundColor = "var(--boxes-color)";
         }
         notificationMobile++;
-        notificationBoxMenu++;
+        
       }
-
+        cnterBxMobileElement.style.backgroundColor = "var(--boxes-color)"
+        notificationBoxMenu++;
       if (notificationMobile == 1) {
         btnCounterInMbMenu.style.display = "flex";
       }

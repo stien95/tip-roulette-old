@@ -1,19 +1,23 @@
 const counterBoxesElement = document.querySelector(".counter-boxes");
 const cnterBxMobileElement = document.querySelector(".counter-boxes-mobile");
+const btnBoxMenu = document.querySelector(".button-box");
+const boxMenuElement = document.querySelector(".box-menu");
 const rouletteElement = document.querySelector(".roulette");
+const noBoxMessageElement = document.querySelector(".no-box-message");
 const boxElements = document.querySelectorAll(".box-roulette");
 const spinButton = document.querySelector("#spin-btn");
 const styleHoverBox = document.querySelector("#style-hover-box");
-const buttonMenuMobile = document.querySelector(".mobile-menu");
+const btnMenuMobile = document.querySelector(".mobile-menu");
 const menuMobile = document.querySelector(".phone-navigation-menu");
-const counterInMbMenuBtn = document.querySelector(".counter-boxes-mobile-menu");
+const btnCounterInMbMenu = document.querySelector(".counter-boxes-mobile-menu");
 const htmlElement = document.documentElement;
 const dataStyle_1 = styleHoverBox.innerHTML;
 
-const mediaQuery750 = window.matchMedia("(min-width: 750px)");
+const mediaQuery750 = window.matchMedia("(min-width: 450px)");
 const timeAnimation = 25;
-let counterBox = 0;
+let numberBox = 0;
 let notificationMobile = 0;
+let notificationBoxMenu = 0;
 let fpp = 0.5;
 let boxChosen;
 let percentComplete = 0;
@@ -27,45 +31,89 @@ mediaQuery750.addEventListener("change", (e) => {
     htmlElement.classList.remove("no-overflowY");
   }
 });
-buttonMenuMobile.addEventListener("click", () => {
+btnMenuMobile.addEventListener("click", () => {
   notificationMobile = 0;
-  counterInMbMenuBtn.style.display = "none";
-  counterInMbMenuBtn.innerText = notificationMobile;
+  btnCounterInMbMenu.style.display = "none";
+  btnCounterInMbMenu.innerText = notificationMobile;
   menuMobile.classList.toggle("visible-menu");
   htmlElement.classList.toggle("no-overflowY");
 });
+btnBoxMenu.addEventListener("click", () => {
+  const lastBoxElement = document.querySelector(".box-element:last-child");
+  notificationBoxMenu = 0;
+  lastBoxElement.scrollIntoView({ behavior: "smooth" });
+  counterBoxesElement.innerText = notificationBoxMenu;
+  cnterBxMobileElement.innerText = notificationBoxMenu;
+  boxMenuElement.classList.toggle("flex-display");
+  counterBoxesElement.style.backgroundColor = "var(--no-boxes-color)";
+  cnterBxMobileElement.style.backgroundColor = "var(--no-boxes-color)";
+});
+
+const dataBoxes = {
+  image: ["svg/music.svg", "svg/game.svg", "svg/film.svg", "svg/general.svg"],
+  title: ["Music", "Game", "Film", "General"],
+};
+function DataBoxChosen(nBox) {
+  numberBox++;
+  if (numberBox == 1) {
+    noBoxMessageElement.remove();
+  }
+  let imageBox = new Image();
+  imageBox.src = dataBoxes.image[nBox];
+  let titleBox = `${dataBoxes.title[nBox]} Title Box`;
+
+  let boxElement = document.createElement("div");
+  let numberBoxElement = document.createElement("span");
+  let titleBoxElement = document.createElement("span");
+  let imageBoxElement = document.createElement("img");
+  boxElement.classList.add("box-element");
+  titleBoxElement.classList.add("box-title");
+  numberBoxElement.classList.add("number-box");
+  titleBoxElement.innerText = titleBox;
+
+  numberBoxElement.innerText = numberBox;
+
+  imageBoxElement.src = imageBox.src;
+  boxMenuElement.appendChild(boxElement);
+  boxElement.append(numberBoxElement, titleBoxElement, imageBoxElement);
+}
+
+let choosenNumber;
 spinButton.addEventListener("click", () => {
+  boxMenuElement.classList.remove("flex-display");
   styleHoverBox.innerHTML = "";
   spinButton.style.display = "none";
   percentComplete = 0;
-
   const ChooseBox = setInterval(() => {
     boxElements.forEach((box) => (box.style.filter = "brightness(30%)"));
-    boxChosen = boxElements[randBox(4)];
+    choosenNumber = randBox(4);
+    boxChosen = boxElements[choosenNumber];
     boxChosen.style.filter = "brightness(100%)";
   }, 200);
-
   const animationSpin = setInterval(() => {
     percentComplete += fpp;
     rouletteElement.style.backgroundImage = `linear-gradient(90deg, #333 ${percentComplete}%, var(--roulette-color) 0%)`;
     if (percentComplete >= 100) {
+      DataBoxChosen(choosenNumber);
       spinButton.style.display = "flex";
       clearInterval(ChooseBox);
       clearInterval(animationSpin);
       styleHoverBox.innerHTML = dataStyle_1;
-      console.log(styleHoverBox.innerHTML);
-      if (counterBox === 0) {
-        counterBoxesElement.style.backgroundColor = "var(--boxes-color)";
-        cnterBxMobileElement.style.backgroundColor = "var(--boxes-color)";
+      if (!boxMenuElement.classList.contains("flex-display")) {
+        if (notificationBoxMenu === 0) {
+          counterBoxesElement.style.backgroundColor = "var(--boxes-color)";
+          cnterBxMobileElement.style.backgroundColor = "var(--boxes-color)";
+        }
+        notificationMobile++;
+        notificationBoxMenu++;
       }
-      counterBox++;
-      notificationMobile++;
+
       if (notificationMobile == 1) {
-        counterInMbMenuBtn.style.display = "flex";
+        btnCounterInMbMenu.style.display = "flex";
       }
-      counterInMbMenuBtn.innerText = notificationMobile;
-      counterBoxesElement.innerText = counterBox;
-      cnterBxMobileElement.innerText = counterBox;
+      btnCounterInMbMenu.innerText = notificationMobile;
+      counterBoxesElement.innerText = notificationBoxMenu;
+      cnterBxMobileElement.innerText = notificationBoxMenu;
       const reverseAnimation = setInterval(() => {
         percentComplete -= fpp;
         rouletteElement.style.backgroundImage = `linear-gradient(90deg, #333 ${percentComplete}%, var(--roulette-color) 0%)`;

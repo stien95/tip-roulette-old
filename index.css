@@ -142,6 +142,7 @@ body {
   width: 30vw;
   max-height: 40vw;
   padding: 10px 0;
+  padding-left: 8px;
   overflow-y:scroll;
 }
 .box-menu::-webkit-scrollbar {

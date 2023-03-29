@@ -39,16 +39,18 @@ btnMenuMobile.addEventListener("click", () => {
   htmlElement.classList.toggle("no-overflowY");
 });
 btnBoxMenu.addEventListener("click", () => {
-  const lastBoxElement = document.querySelector(".box-element:last-child");
+  if (!noBoxMessageElement) {
+    const lastBoxElement = document.querySelector(".box-element:last-child");
+    lastBoxElement.scrollIntoView({ behavior: "smooth" });
+  }
   notificationBoxMenu = 0;
-  lastBoxElement.scrollIntoView({ behavior: "smooth" });
+  
   counterBoxesElement.innerText = notificationBoxMenu;
   cnterBxMobileElement.innerText = notificationBoxMenu;
   boxMenuElement.classList.toggle("flex-display");
   counterBoxesElement.style.backgroundColor = "var(--no-boxes-color)";
   cnterBxMobileElement.style.backgroundColor = "var(--no-boxes-color)";
 });
-
 const dataBoxes = {
   image: ["svg/music.svg", "svg/game.svg", "svg/film.svg", "svg/general.svg"],
   title: ["Music", "Game", "Film", "General"],

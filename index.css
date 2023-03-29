@@ -23,7 +23,6 @@
   --boxes-color: #33aa55;
   /*COLORS WITH HOVER*/
   /*CHV = Color Hover*/
-
 }
 html {
   font-size: 62.5%;
@@ -40,7 +39,11 @@ body {
 .no-decoration {
   text-decoration: none;
 }
+/*HEADER SECTION*/
 .title-section {
+  position: sticky;
+  top: 0;
+  z-index: 5;
   filter: brightness(70%);
   width: 100vw;
   padding: 20px 0;
@@ -48,6 +51,7 @@ body {
   padding-right: 10vw;
   background-color: var(--bg-color-title);
   border-radius: 0 0 40px 40px;
+  height: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,15 +95,14 @@ body {
   box-shadow: 0 0 5px var(--white);
 }
 .header-nav-button img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
-.button-box {
+/*BUTTONS HEADERS WITH COUNTERS*/
+.button-box, .mobile-menu {
   position: relative;
 }
-.mobile-menu {
-  position: relative;
-}
+/*COUNTER BOXES PC*/
 .counter-boxes {
   position: absolute;
   display: flex;
@@ -114,6 +117,7 @@ body {
   top: 0;
   right: 0;
 }
+/*COUNTER BOXES MOBILE*/
 .counter-boxes-mobile-menu {
   position: absolute;
   display: none;
@@ -127,9 +131,12 @@ body {
   height: 18px;
   top: 0;
   right: 0;
-  
 }
+/*BOX MENU PC*/
 .box-menu {
+  display: none;
+}
+.computer-version-box-menu {
   border-radius: 10px;
   position: absolute;
   z-index: 2;
@@ -143,28 +150,17 @@ body {
   max-height: 40vw;
   padding: 10px 0;
   padding-left: 8px;
-  overflow-y:scroll;
+  overflow-y: scroll;
 }
-.box-menu::-webkit-scrollbar {
+.computer-version-box-menu::-webkit-scrollbar {
   width: 8px;
 }
-.box-menu::-webkit-scrollbar-track {
-background-color: transparent;
+.computer-version-box-menu::-webkit-scrollbar-track {
+  background-color: transparent;
 }
-
-.box-menu::-webkit-scrollbar-thumb {
-background: var(--light-gray);
-border-radius: 5px;
-}
-.flex-display {
-  display: flex;
-}
-.no-box-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--white);
-  font-size: 2rem;
+.computer-version-box-menu::-webkit-scrollbar-thumb {
+  background: var(--light-gray);
+  border-radius: 5px;
 }
 .box-element {
   position: relative;
@@ -186,8 +182,11 @@ border-radius: 5px;
 .box-element:nth-child(1) {
   border-top: 1px solid var(--white);
 }
-.box-title {
-  padding-left: 5px;
+
+.box-element:hover .number-box {
+  transition: all 0.3s;
+  border-right: 1px solid var(--white);
+  text-shadow: 0 0 5px var(--white);
 }
 .number-box {
   display: flex;
@@ -196,10 +195,8 @@ border-radius: 5px;
   padding: 0 5px;
   height: 100%;
 }
-.box-element:hover .number-box {
-  transition: all 0.3s;
-  border-right: 1px solid var(--white);
-  text-shadow: 0 0 5px var(--white);
+.box-title {
+  padding-left: 5px;
 }
 .box-element img {
   position: absolute;
@@ -207,11 +204,14 @@ border-radius: 5px;
   padding-right: 10px;
   max-height: 100%;
 }
-main {
+.no-box-message {
   display: flex;
-  margin: 20px;
   justify-content: center;
+  align-items: center;
+  color: var(--white);
+  font-size: 2rem;
 }
+/*MOBILE MENU FOR OPTIONS*/
 .phone-navigation-menu {
   position: absolute;
   padding-top: 20px;
@@ -219,11 +219,8 @@ main {
   display: none;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  height: calc(100% - 100px);
   background-color: var(--bg-color);
-}
-.visible-menu {
-  display: flex;
 }
 .mobile-button {
   border-bottom: 1px solid white;
@@ -233,17 +230,20 @@ main {
   border-radius: 0%;
   display: flex;
   justify-content: space-between;
-  padding: 0 25vw;
+  padding: 0 15vw;
   align-items: center;
   overflow: hidden;
-  
-}
-.mobile-button:hover > span {
-  text-shadow: 0 0 5px var(--white);
 }
 .mobile-button:nth-child(1) {
   border-top: 1px solid white;
 }
+.mobile-button:hover > span {
+  text-shadow: 0 0 5px var(--white);
+}
+.mobile-button img {
+  max-height: 100%;
+}
+/*ICON COUNTER IN BUTTON BOX MOBILE*/
 .counter-boxes-mobile {
   display: flex;
   align-items: center;
@@ -255,10 +255,23 @@ main {
   width: 30px;
   height: 30px;
 }
-.mobile-button img {
-  max-height: 100%;
+/*MOBILE MENU FOR CONFIG. AND BOX*/
+.mobile-version-menu {
+  display: flex;
+  position: absolute;
+  padding-top: 20px;
+  z-index: 2;
+  flex-direction: column;
+  width: 100vw;
+  height: calc(100% - 100px);
+  background-color: var(--bg-color);
 }
-
+/*<MAIN/> CODE*/
+main {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+}
 .info-box {
   position: absolute;
 }
@@ -290,7 +303,7 @@ main {
   border-radius: 10px;
   margin: 10px;
 }
-.box-roulette > img{
+.box-roulette > img {
   transition: all 0.5s;
   width: 80%;
   height: 80%;
@@ -306,7 +319,6 @@ main {
   transform: translate(-50%, -50%);
   visibility: hidden;
 }
-
 #spin-btn {
   position: absolute;
   display: flex;
@@ -332,6 +344,13 @@ main {
   transition: transform 0.05s;
   transform: translate(-50%, -50%) scale(0.95);
 }
+/*CLASS FOR JS*/
+.visible-menu {
+  display: flex;
+}
+.flex-display {
+  display: flex;
+}
 @media (min-width: 1px) {
   .mobile-menu {
     display: inline-block;
@@ -340,7 +359,7 @@ main {
     display: none;
   }
 }
-@media (min-width:450px) {
+@media (min-width: 450px) {
   .mobile-menu {
     display: none;
   }
@@ -360,7 +379,7 @@ main {
     width: 50vw;
     height: 50vw;
   }
-  .box-menu {
+  .computer-version-box-menu {
     width: 40vw;
     max-height: 45vw;
   }
@@ -373,7 +392,7 @@ main {
   .title-section {
     padding-left: 20vw;
   }
-  .box-menu {
+  .computer-version-box-menu {
     width: 55vw;
     max-height: 55vw;
   }
@@ -386,7 +405,7 @@ main {
   .title-section {
     padding-left: 10vw;
   }
-  .box-menu {
+  .computer-version-box-menu {
     width: 70vw;
     max-height: 70vw;
   }
@@ -399,10 +418,5 @@ main {
   .title-section {
     padding-right: 5vw;
     padding-left: 5vw;
-  }
-}
-@media (max-width:450px) {
-  .box-menu {
-    display: none;
   }
 }

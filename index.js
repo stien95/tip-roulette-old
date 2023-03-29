@@ -1,6 +1,7 @@
 const counterBoxesElement = document.querySelector(".counter-boxes");
 const cnterBxMobileElement = document.querySelector(".counter-boxes-mobile");
 const btnBoxMenu = document.querySelector(".button-box");
+const btnBoxMenuMobile = document.querySelector(".button-box.mobile-button");
 const boxMenuElement = document.querySelector(".box-menu");
 const rouletteElement = document.querySelector(".roulette");
 const noBoxMessageElement = document.querySelector(".no-box-message");
@@ -32,13 +33,15 @@ mediaQuery750.addEventListener("change", (e) => {
   }
 });
 btnMenuMobile.addEventListener("click", () => {
-  notificationMobile = 0;
+  notificationBoxMenu = 0;
   btnCounterInMbMenu.style.display = "none";
-  btnCounterInMbMenu.innerText = notificationMobile;
-  menuMobile.classList.toggle("visible-menu");
-  htmlElement.classList.toggle("no-overflowY");
+  btnCounterInMbMenu.innerText = 0;
+  if (!boxMenuElement.classList.contains("mobile-version-menu")) {
+    menuMobile.classList.toggle("visible-menu");
+  }
+  boxMenuElement.classList.remove("mobile-version-menu");
 });
-btnBoxMenu.addEventListener("click", () => {
+function updateBoxMenu() {
   if (!noBoxMessageElement) {
     const lastBoxElement = document.querySelector(".box-element:last-child");
     lastBoxElement.scrollIntoView({ behavior: "smooth" });
@@ -47,10 +50,22 @@ btnBoxMenu.addEventListener("click", () => {
   
   counterBoxesElement.innerText = notificationBoxMenu;
   cnterBxMobileElement.innerText = notificationBoxMenu;
-  boxMenuElement.classList.toggle("flex-display");
   counterBoxesElement.style.backgroundColor = "var(--no-boxes-color)";
   cnterBxMobileElement.style.backgroundColor = "var(--no-boxes-color)";
+}
+btnBoxMenuMobile.addEventListener("click", () => {
+  updateBoxMenu();
+  boxMenuElement.classList.toggle("mobile-version-menu");
+  boxMenuElement.classList.remove("computer-version-box-menu")
+  menuMobile.classList.remove("visible-menu");
 });
+btnBoxMenu.addEventListener("click", () => {
+  updateBoxMenu();
+  boxMenuElement.classList.remove("mobile-version-menu");
+  boxMenuElement.classList.add("computer-version-box-menu");
+  boxMenuElement.classList.toggle("flex-display");
+});
+
 const dataBoxes = {
   image: ["svg/music.svg", "svg/game.svg", "svg/film.svg", "svg/general.svg"],
   title: ["Music", "Game", "Film", "General"],
@@ -60,8 +75,6 @@ function DataBoxChosen(nBox) {
   if (numberBox == 1) {
     noBoxMessageElement.remove();
   }
-  let imageBox = new Image();
-  imageBox.src = dataBoxes.image[nBox];
   let titleBox = `${dataBoxes.title[nBox]} Title Box`;
 
   let boxElement = document.createElement("div");
@@ -75,7 +88,7 @@ function DataBoxChosen(nBox) {
 
   numberBoxElement.innerText = numberBox;
 
-  imageBoxElement.src = imageBox.src;
+  imageBoxElement.src = dataBoxes.image[nBox];
   boxMenuElement.appendChild(boxElement);
   boxElement.append(numberBoxElement, titleBoxElement, imageBoxElement);
 }
